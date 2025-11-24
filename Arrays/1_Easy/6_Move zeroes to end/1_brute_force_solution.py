@@ -1,21 +1,21 @@
 def move_zeros_to_end(nums):
 
-    n = len(nums)
-    temp = []
+    n = len(nums)  # Get the total number of elements in the list
+    temp = []  # Temporary list to store all non-zero elements
 
     for i in range(0, n):
-        if nums[i] != 0:
-            temp.append(nums[i])
+        if nums[i] != 0:  # Check if current element is not zero
+            temp.append(nums[i])  # Add non-zero element to temp list
 
-    m = len(temp)
+    m = len(temp)  # Number of non-zero elements collected
 
-    for i in range(0, m):
+    for i in range(0, m):  # Copy non-zero elements back into original list
         nums[i] = temp[i]
 
-    for i in range(m, n):
+    for i in range(m, n):  # Fill the rest of the list with zeros
         nums[i] = 0
 
-    return nums
+    return nums  # Return the updated list
 
 
 nums = [1, 0, 2, 4, 3, 0, 0, 3, 5, 1]
