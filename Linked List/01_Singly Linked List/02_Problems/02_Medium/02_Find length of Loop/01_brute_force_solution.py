@@ -14,19 +14,25 @@ class Node:
 
 
 class Solution:
-    def length_of_loop(self, head: Optional[Node]) -> Optional[Node]:
-        curr = head
-        visited = {}
-        travel = 0
+    def length_of_loop(self, head: Optional[Node]) -> int:
+        curr = head  # Pointer to traverse the linked list
+        visited = {}  # Dictionary to store visited nodes with their index
+        travel = 0  # Keeps track of traversal position (step count)
 
+        # Traverse the linked list
         while curr is not None:
+            # If current node already visited → loop detected
             if curr in visited:
+                # Loop length = current index - first visited index
                 count = travel - visited[curr]
                 return count
             else:
+                # Store node with its traversal index
                 visited[curr] = travel
                 travel += 1
-                curr = curr.next
+                curr = curr.next  # Move to next node
+
+        # If we reach None → no loop exists
         return 0
 
 
