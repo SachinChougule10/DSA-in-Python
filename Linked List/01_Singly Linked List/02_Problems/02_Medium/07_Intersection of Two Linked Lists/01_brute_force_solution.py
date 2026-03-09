@@ -60,7 +60,7 @@ class Solution:
 # Creating the common intersection part
 common = Node(8)
 common.next = Node(4)
-common.next = Node(5)
+common.next.next = Node(5)
 
 # Creating first linked list
 headA = Node(4)
