@@ -86,6 +86,8 @@ class Solution:
         return dummy.next  # Return merged list, skipping sentinel
 
 
+# Build a sample doubly linked list: 4 <-> 2 <-> 1 <-> 3 <-> 5 <-> 6
+
 head = Node(4)
 n1 = Node(2)
 n2 = Node(1)
@@ -93,12 +95,14 @@ n3 = Node(3)
 n4 = Node(5)
 n5 = Node(6)
 
+# Wire up forward (next) pointers
 head.next = n1
 n1.next = n2
 n2.next = n3
 n3.next = n4
 n4.next = n5
 
+# Wire up backward (prev) pointers
 n1.prev = head
 n2.prev = n1
 n3.prev = n2
@@ -116,7 +120,7 @@ def visualize_dll(head):
 
 obj = Solution()
 new_head = obj.sortList(head)
-visualize_dll(new_head)
+visualize_dll(new_head)  # Output : 1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6 <-> None
 
 """
 Logic :
