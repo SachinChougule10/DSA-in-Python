@@ -22,14 +22,20 @@
 
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
-        # Handle sign of result
+
+        # Handle overflow case (only problematic case in 32-bit range)
+        if dividend == -(2**31) and divisor == -1:
+            return 2**31 - 1
+
+        # Determine sign of result using XOR
+        # Result is negative if exactly one of dividend or divisor is negative
         sign = -1 if (dividend < 0) ^ (divisor < 0) else 1
 
-        # Work with absolute values
+        # Convert both numbers to positive for easy calculation
         dividend = abs(dividend)
         divisor = abs(divisor)
 
-        #  This will store the quotient
+        # This will store the final quotient
         count = 0
         total = divisor
 
@@ -46,26 +52,62 @@ obj = Solution()
 dividend = 10
 divisor = 3
 
-print(obj.divide(dividend, divisor))
+print(obj.divide(dividend, divisor))  # Output : 3
 
-"""BRUTE FORCE LOGIC:
+
+"""
+LOGIC EXPLANATION (Brute Force Approach):
 
 Goal:
-Perform division without using *, /, %
-
-Idea:
-Division is repeated subtraction.
-
-Steps:
-1. Convert both dividend and divisor to positive numbers.
-2. Repeatedly subtract divisor from dividend.
-3. Count how many times subtraction is possible.
-4. That count is the quotient.
-5. Apply the correct sign at the end.
+Divide two integers without using multiplication (*), division (/), or modulus (%).
 
 --------------------------------------------------
 
-Example:
+CORE IDEA:
+Division can be represented as repeated subtraction.
+
+Instead of:
+    dividend / divisor
+
+We do:
+    keep subtracting divisor from dividend
+    and count how many times we can subtract
+
+--------------------------------------------------
+
+STEP-BY-STEP:
+
+1. Handle Overflow Case:
+   - If dividend = -2^31 and divisor = -1
+   - Result becomes 2^31, which exceeds 32-bit range
+   - So return 2^31 - 1 (INT_MAX)
+
+--------------------------------------------------
+
+2. Determine Sign:
+   - Use XOR to check if signs are different
+   - If exactly one is negative → result is negative
+   - Else → result is positive
+
+   sign = -1 if (dividend < 0) ^ (divisor < 0) else 1
+
+--------------------------------------------------
+
+3. Convert to Positive:
+   - Work with absolute values for easier subtraction
+   - Sign will be applied at the end
+
+--------------------------------------------------
+
+4. Repeated Subtraction:
+   - Keep subtracting divisor from dividend
+   - Count how many times this happens
+   - That count is the quotient
+
+--------------------------------------------------
+
+EXAMPLE:
+
 dividend = 10, divisor = 3
 
 10 - 3 = 7   (count = 1)
@@ -77,19 +119,30 @@ Result = 3
 
 --------------------------------------------------
 
-Handling Negative Numbers:
-- If signs are different → result is negative
-- If signs are same → result is positive
+Handling Negative Case:
+
+dividend = 7, divisor = -3
+
+- Convert to positive → 7, 3
+- Perform subtraction → count = 2
+- Apply sign → result = -2
 
 --------------------------------------------------
 
-Time Complexity: O(dividend / divisor)
-Space Complexity: O(1)
+Time Complexity:
+O(dividend / divisor) → very slow for large inputs
+
+Space Complexity:
+O(1)
 
 --------------------------------------------------
 
-Limitation:
-- Very slow for large numbers (TLE for big inputs)
-- Does not meet optimal constraints
+LIMITATION:
+- Not efficient for large numbers (can cause TLE)
+- Optimized solution uses bit manipulation
 
-This is why we later optimize using bit manipulation."""
+--------------------------------------------------
+
+KEY TAKEAWAY:
+Division = repeated subtraction + sign handling
+"""
