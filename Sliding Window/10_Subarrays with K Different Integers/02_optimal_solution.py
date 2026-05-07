@@ -99,5 +99,5 @@ Logic (Optimal Sliding Window + At Most Trick):
    nums = [1,2,1,2,3], k = 2 → Output = 7
 
 Important Pattern:
-   EXACT K = atMost(K) - atMost(K-1)
+   EXACT K = atMost(K) - atMost(K-1) # pattern
 """
